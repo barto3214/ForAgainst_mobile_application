@@ -1,5 +1,6 @@
 package com.example.bankobserver;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -8,10 +9,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.bankobserver.databinding.ActivityMainBinding;
 
@@ -26,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private int ar_poz;
     private int ar_neg;
     ActivityMainBinding binding;
+    Database_argument databaseArgument;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,27 @@ public class MainActivity extends AppCompatActivity {
             return insets;
 
         });
+
+        RoomDatabase.Callback callback = new RoomDatabase.Callback() {   // callback to chyba działanie w tle
+            @Override
+            public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                super.onCreate(db);
+            }
+
+            @Override
+            public void onOpen(@NonNull SupportSQLiteDatabase db) {
+                super.onOpen(db);
+            }
+
+            @Override
+            public void onDestructiveMigration(@NonNull SupportSQLiteDatabase db) {
+                super.onDestructiveMigration(db);
+            }
+        };
+        databaseArgument = Room.databaseBuilder(
+                MainActivity.this,
+                Database_argument.class,
+                "Argumenty_DB").fallbackToDestructiveMigration().addCallback(callback).allowMainThreadQueries().build();
 
         adapter = new B_adapter(this,argumenty);
         binding.listView.setAdapter(adapter);
@@ -54,26 +81,44 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                int id = argumenty.isEmpty() ? 0 : argumenty.get(argumenty.size() - 1).getID() + 1;
                 int prio = Integer.parseInt(binding.spinner.getSelectedItem().toString());
 
                 if (!za.isEmpty()) {
-                    argumenty.add(new Argument(prio,id, true, za));
+                    Argument argument = new Argument(prio, true, za);
+                    argumenty.add(argument);
                     ar_poz++;
+                    dodajargdobazy(argument);
                 }
 
                 if (!przeciw.isEmpty()) {
-                    argumenty.add(new Argument(prio,id, false, przeciw));
+                    Argument argument = new Argument(prio, false, przeciw);
+                    argumenty.add(argument);
                     ar_neg++;
+                    dodajargdobazy(argument);
                 }
+
                 binding.dane.setText("Argumenty pozytywne: " + ar_poz + "\nArgumenty negatywne: " + ar_neg);
                 adapter.notifyDataSetChanged();
                 binding.editTextTextZa.setText("");
                 binding.editTextTextprzeciw.setText("");
             }
         });
+        binding.history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,HistoryActivity.class);
+                startActivity(intent);
+            }
+        });
 
-
-
+    }
+    private void dodajargdobazy(Argument argument) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                databaseArgument.zwroc_Dao_arg().wstaw_argument(argument);
+            }
+        });
     }
 }
