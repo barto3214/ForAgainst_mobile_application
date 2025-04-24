@@ -16,13 +16,10 @@ public interface Dao_Argument {
     @Delete
     public void usun_argument(Argument argument);
 
-    @Update
-    public void zaktualizuj_arg(Argument argument);
-
     @Query("SELECT * FROM argumenty_table")
     public List<Argument> zwroc_argumenty();
 
-    @Query("SELECT * FROM argumenty_table ORDER BY priority")
+    @Query("SELECT * FROM argumenty_table ORDER BY priority DESC")
     public List<Argument> zwroc_posortowane();
 
 

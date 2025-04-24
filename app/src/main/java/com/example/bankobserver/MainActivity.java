@@ -82,16 +82,17 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 int prio = Integer.parseInt(binding.spinner.getSelectedItem().toString());
+                int index = argumenty.isEmpty() ? 0 : argumenty.get(argumenty.size() - 1).getIndex() + 1;
 
                 if (!za.isEmpty()) {
-                    Argument argument = new Argument(prio, true, za);
+                    Argument argument = new Argument(index,prio, true, za);
                     argumenty.add(argument);
                     ar_poz++;
                     dodajargdobazy(argument);
                 }
 
                 if (!przeciw.isEmpty()) {
-                    Argument argument = new Argument(prio, false, przeciw);
+                    Argument argument = new Argument(index,prio, false, przeciw);
                     argumenty.add(argument);
                     ar_neg++;
                     dodajargdobazy(argument);
@@ -110,6 +111,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
+        binding.sortujButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Argument> posort = databaseArgument.zwroc_Dao_arg().zwroc_posortowane();
+                adapter = new B_adapter(MainActivity.this,posort);
+                binding.listView.setAdapter(adapter);
+
+            }
+        });
+
 
     }
     private void dodajargdobazy(Argument argument) {

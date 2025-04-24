@@ -12,13 +12,15 @@ public class Argument {
     private int priority;
     public boolean czy_za;
     public String tytul;
+    public int index;
 
 
     public Argument() {
     }
 
-    public Argument(int priority,boolean czy_za, String tytul) {
+    public Argument(int index,int priority,boolean czy_za, String tytul) {
         this.ID = 0;
+        this.index = index;
         this.czy_za = czy_za;
         this.tytul = tytul;
         this.priority = priority;
@@ -59,5 +61,13 @@ public class Argument {
 
     public void setTytul(String tytul) {
         this.tytul = tytul;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 }

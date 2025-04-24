@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Styl główny dla EditText -->
+    <style name="AppEditText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">#FF6200EE</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- Styl dla TextView -->
+    <style name="AppTextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Styl dla Spinnera -->
+    <style name="AppSpinner">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:backgroundTint">#FF6200EE</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <!-- Styl przycisku -->
+    <style name="AppButton">
+        <item name="android:backgroundTint">#FF3700B3</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- Styl dla ListView -->
+    <style name="AppListView">
+        <item name="android:divider">#BDBDBD</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:background">#FFFFFF</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+
+</resources>

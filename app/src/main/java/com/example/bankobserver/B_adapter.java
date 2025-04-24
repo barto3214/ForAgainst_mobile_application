@@ -34,7 +34,7 @@ public class B_adapter extends ArrayAdapter<Argument> {
         TextView itemText = convertView.findViewById(R.id.itemText);
 
 
-        itemText.setText("Argument: " + argument.getID() + "\nTreść: " + argument.getTytul());
+        itemText.setText("Argument: " + argument.getIndex() + "\nTreść: " + argument.getTytul() + "\nPriorytet: " + argument.getPriority());
 
         if (argument.isCzy_za()) {
             itemText.setBackgroundResource(R.drawable.green_border);
