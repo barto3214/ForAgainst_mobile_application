@@ -22,5 +22,8 @@ public interface Dao_Argument {
     @Query("SELECT * FROM argumenty_table")
     public List<Argument> zwroc_argumenty();
 
+    @Query("SELECT * FROM argumenty_table ORDER BY priority")
+    public List<Argument> zwroc_posortowane();
+
 
 }

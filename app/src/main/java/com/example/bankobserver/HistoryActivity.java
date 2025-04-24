@@ -3,6 +3,7 @@ package com.example.bankobserver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -54,7 +55,14 @@ public class HistoryActivity extends AppCompatActivity {
         );
         lista.setAdapter(arrayAdapter);
 
-
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                databaseArgument.zwroc_Dao_arg().usun_argument(arggumenty.get(i));
+                arggumenty.remove(i);
+                arrayAdapter.notifyDataSetChanged();
+            }
+        });
 
     }
 
